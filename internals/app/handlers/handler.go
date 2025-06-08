@@ -29,9 +29,9 @@ func WrapOK(w http.ResponseWriter, m map[string]interface{}) {
 	fmt.Fprintln(w, string(res))
 }
 
-func WrapRedirectOK(w http.ResponseWriter, m map[string]interface{}) {
-	res, _ := json.Marshal(m)
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.WriteHeader(http.StatusMovedPermanently)
-	fmt.Fprintln(w, string(res))
-}
+// func WrapRedirectOK(w http.ResponseWriter, m map[string]interface{}) {
+// 	res, _ := json.Marshal(m)
+// 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+// 	w.WriteHeader(http.StatusMovedPermanently)
+// 	fmt.Fprintln(w, string(res))
+// }

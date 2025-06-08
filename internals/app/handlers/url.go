@@ -51,12 +51,5 @@ func (hanler *UrlHandler) Redirect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var m = map[string]interface{}{
-		"result": "OK",
-		"data":   url,
-	}
-
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
-
-	WrapRedirectOK(w, m)
 }
