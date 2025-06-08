@@ -1,0 +1,41 @@
+services:
+  url-shortener:
+    build: ./
+    command: ./url-shortener
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SERV_PORT=8080
+      - SERV_DBUSER=user
+      - SERV_DBPASS=qwerty
+      - SERV_DBHOST=db
+      - SERV_DBPORT=5432
+      - SERV_DBNAME=url
+    restart: unless-stopped
+
+  db:
+    restart: always
+    image: postgres:15-alpine
+    container_name: url_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_DB=url
+      - POSTGRES_INITDB_ARGS=--locale=C --encoding=UTF8
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d url"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  postgres_data:
