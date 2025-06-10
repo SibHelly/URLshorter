@@ -1,4 +1,4 @@
-.PHONY: up down build rebuild logs clean ps
+.PHONY: up down build rebuild logs clean ps db-clean
 
 up:
 	docker-compose up -d
@@ -29,3 +29,10 @@ url-logs:
 url-bash:
 	docker-compose exec url-shortener sh
 
+# Очистка хранилища базы данных (удаляет volume)
+db-clean:
+	docker volume rm urlshorter_postgres_data
+
+# Показать список контейнеров
+ps:
+	docker-compose ps

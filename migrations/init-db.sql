@@ -15,11 +15,7 @@ CREATE TABLE IF NOT EXISTS urls (
 CREATE TABLE IF NOT EXISTS visits (
     id SERIAL PRIMARY KEY,
     url_id INT REFERENCES urls(id) ON DELETE CASCADE NOT NULL,
-    ip_address VARCHAR(45),
-    user_agent TEXT,
-    referrer TEXT,
-    country_code CHAR(2),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
 -- Индексы для оптимизации
